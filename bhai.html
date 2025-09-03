@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FF Tournament 2025</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box}
+    :root {
+      --bg:#0f0f10; --paper:#17181a; --accent:#ff9800; --muted:#a7a7a7; --ok:#22c55e; --warn:#ef4444;
+    }
+    body {
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+      background: url("cool-geometric-triangular-figure-neon-laser-light-great-backgrounds-wallpapers.jpg") no-repeat center center scroll;
+      background-size: cover;
+      color:#fff;
+      line-height:1.6;
+    }
+    header {position:sticky; top:0; z-index:10; background:#141416; padding:18px 16px; border-bottom:3px solid var(--accent)}
+    header h1 {text-align:center; color:var(--accent); letter-spacing:.3px; font-size:28px}
+    nav ul {list-style:none; display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-top:10px}
+    nav a {color:#fff; text-decoration:none; padding:8px 14px; border-radius:8px; transition:all .2s ease}
+    nav a:hover {background:var(--accent); color:#000}
+
+    section {padding:44px 20px; border-bottom:1px solid #27272a}
+    .container {max-width:1000px; margin:0 auto}
+
+    .btn {background:var(--accent); color:#000; padding:12px 18px; border-radius:10px; display:inline-block; font-weight:700; text-decoration:none; border:none; cursor:pointer}
+    .btn[disabled] {opacity:.5; cursor:not-allowed}
+
+    .grid {display:grid; gap:22px}
+    @media (min-width:900px){ .grid-2 {grid-template-columns:1fr 1fr} }
+
+    .card {background:var(--paper); border:1px solid #2a2a2e; border-radius:18px; padding:22px}
+    .card h3 {margin-bottom:10px}
+
+    ul.clean {list-style:none; padding:0}
+    ul.clean li {padding:6px 0}
+
+    .muted {color:var(--muted)}
+    .tiny {font-size:12px}
+
+    form {display:flex; flex-direction:column; gap:14px}
+    input, select, textarea {padding:12px 12px; border-radius:12px; background:#0e0f11; color:#fff; border:1px solid #2b2b30; outline:0}
+    input:focus, textarea:focus {border-color:var(--accent)}
+    label {font-weight:600}
+    .row {display:grid; gap:12px}
+    @media (min-width:700px){ .row-2 {grid-template-columns:1fr 1fr} }
+
+    .qr {display:flex; align-items:center; justify-content:center; background:#0b0c0e; border:1px dashed #2f2f34; border-radius:16px; padding:20px}
+    .qr img {max-width:320px; width:100%; height:auto; border-radius:12px}
+
+    footer {text-align:center; padding:22px; color:#aaa; background:#141416}
+    .ok {color:var(--ok)}
+    .warn {color:var(--warn)}
+  </style>
+  <script>
+    function byId(id){return document.getElementById(id)}
+
+    function validatePayment() {
+      const utr = byId('utr').value.trim()
+      const amount = parseFloat(byId('amount').value.trim())
+      const paid = byId('confirmPaid').checked
+      const ssOk = byId('ss').files.length > 0
+
+      const utrOk = /\b[0-9A-Z]{6,}\b/.test(utr)
+      const amtOk = !isNaN(amount) && amount > 0
+
+      const payValid = paid && utrOk && amtOk && ssOk
+
+      byId('payStatus').textContent = payValid ? 'Payment info looks good ?' : 'Complete payment details to continue'
+      byId('payStatus').className = payValid ? 'ok tiny' : 'warn tiny'
+      byId('submitBtn').disabled = !payValid
+    }
+
+    function sendToWhatsApp(e) {
+      e.preventDefault()
+      validatePayment()
+      if(byId('submitBtn').disabled){return}
+
+      const team = byId('team').value.trim()
+      const ign = byId('ign').value.trim()
+      const uid = byId('uid').value.trim()
+      const email = byId('email').value.trim()
+      const phone = byId('phone').value.trim()
+
+      const amount = byId('amount').value.trim()
+      const utr = byId('utr').value.trim()
+
+      const msg = [
+        '?? *FF Tournament 2025 Registration* ??',
+        '',
+        `?? Team: ${team}`,
+        `?? Leader IGN: ${ign}`,
+        `?? Leader UID: ${uid}`,
+        `?? Email: ${email}`,
+        `?? Phone: ${phone}`,
+        '',
+        '*Payment Details*',
+        `?? Amount: ?${amount}`,
+        `?? UPI Ref (UTR): ${utr}`,
+      ].join('%0A')
+
+      const wa = 'https://wa.me/918141181372?text=' + encodeURI(msg)
+      window.open(wa, '_blank')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      ['utr','amount','confirmPaid','ss'].forEach(id => {
+        const el = byId(id)
+        if(el.type === 'file') el.addEventListener('change', validatePayment)
+        else el.addEventListener('input', validatePayment)
+      })
+      validatePayment()
+    })
+  </script>
+</head>
+<body>
+  <header>
+    <h1>?? FF Tournament 2025</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#video">Video</a></li> <!-- ? new video menu link -->
+        <li><a href="#tournament">Tournament</a></li>
+        <li><a href="#register">Register</a></li>
+        <li><a href="#rules">Rules</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home">
+    <div class="container grid grid-2">
+      <div class="card">
+        <h2>Welcome to the Ultimate Free Fire Tournament!</h2>
+        <p class="muted">Compete with the best. Big prizes, tough battles, zero hacks.</p>
+        <a href="#register" class="btn" style="margin-top:10px">Register Now</a>
+      </div>
+      <div class="card">
+        <h3>Quick Info</h3>
+        <ul class="clean">
+          <li>?? <strong>Date:</strong> 7 september 2025</li>
+          <li>? <strong>Time:</strong> 6:00 PM IST</li>
+          <li>?? <strong>Prize Pool:</strong> depend on members</li>
+          <li>?? <strong>Format:</strong> duo Tournament</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ? Video Section -->
+  <section id="video">
+    <div class="container card">
+      <h2>?? Tournament Promo Video</h2>
+      <video width="100%" controls>
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+
+  <section id="register">
+    <div class="container grid grid-2">
+      <div class="card">
+        <h2>1) Pay Entry Fee</h2>
+        <p class="muted tiny">Scan the QR and pay to proceed. Registration will not submit until payment details are filled.</p>
+        <div class="qr" style="margin:12px 0 16px">
+          <img src="WhatsApp Image 2025-08-28 at 3.01.37 PM.jpeg" alt="UPI QR to pay" />
+        </div>
+        <div class="row row-2">
+          <div>
+            <label for="amount">Amount (?)</label>
+            <input id="amount" type="number" placeholder="10000s" min="5" inputmode="numeric" />
+          </div>
+          <div>
+            <label for="utr">UPI Ref / UTR</label>
+            <input id="utr" type="text" placeholder="e.g. 3214ABCD56" />
+          </div>
+        </div>
+        <div>
+          <label for="ss">Upload payment screenshot</label>
+          <input id="ss" type="file" accept="image/*" />
+        </div>
+        <label style="display:flex; gap:10px; align-items:center; margin-top:6px">
+          <input id="confirmPaid" type="checkbox" /> I confirm I have paid the entry fee.
+        </label>
+        <p id="payStatus" class="warn tiny" style="margin-top:6px">Complete payment details to continue</p>
+      </div>
+
+      <div class="card">
+        <h2>2) Register Your Squad</h2>
+        <form onsubmit="sendToWhatsApp(event)">
+          <input id="team" type="text" placeholder="Team Name" required />
+          <div class="row row-2">
+            <input id="ign" type="text" placeholder="Leader IGN" required />
+            <input id="uid" type="text" placeholder="Leader UID" required />
+          </div>
+          <div class="row row-2">
+            <input id="email" type="email" placeholder="Email" required />
+            <input id="phone" type="text" placeholder="Phone / WhatsApp" required />
+          </div>
+          <button id="submitBtn" type="submit" class="btn" disabled>Submit Registration on WhatsApp</button>
+          <p class="tiny muted">Button unlocks only after valid payment info is provided above.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="rules">
+    <div class="container card">
+      <h2>Rules & Regulations</h2>
+      <ul class="clean">
+        <li>?? No hacks or cheats allowed</li>
+        <li>? Be on time; late entries are disqualified</li>
+        <li>?? Use the same UID as registered</li>
+        <li>?? Respect opponents and admins</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container card">
+      <h2>Contact Us</h2>
+      <p>For any questions, reach us on WhatsApp: <strong>+91-8141181372</strong></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 FF Tournament. All rights reserved.</p>
+  </footer>
+</body>
+</html>
